@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.min.js"></script>
+    </head>
+    <body>
+        <script>
+            
+            let t = 0; // 시간 변수
+
+            function setup() {
+            createCanvas(windowWidth, windowHeight);
+            noStroke();
+            fill(205, 212, 222);
+            }
+
+            function draw() {
+            background(1000, 8); // 불투명한 배경화면(파티클의 꼬리 만들기)
+
+            for(i=0; i<windowWidth; i+=10+mouseX/10){
+                for(j=0; j<windowHeight; j+=10+mouseY/10){
+                    fill(250/mouseY*2, 250/mouseY*2,255/mouseY*2)
+                }
+            }
+
+            // 타원형으로 구성된 x와 y 그리드 만들기
+            for (let x = 0; x <= width; x = x + 15) {
+                for (let y = 0; y <= height; y = y + 15) {
+                // 각 타원의 시작 점은 마우스 위치에 따라 달라집니다.
+                const xAngle = map(mouseX, 0, width, -2 * PI, 2 * PI, true);
+                const yAngle = map(mouseY, 0, height, -2 * PI, 2 * PI, true);
+                // 또, 파티클의 위치에 따라 달라집니다.
+                const angle = xAngle * (x / width) + yAngle * (y / height);
+
+                // 각 파티클은 동그라미를 그리며 움직입니다.
+                const myX = x + 20 * cos(3 * PI * t + angle);
+                const myY = y + 20 * sin(3 * PI * t + angle);
+
+                ellipse(myX, myY, 10); // 파티클로 그리기
+                }
+            }
+
+            t = t + 0.005; // 시간 업데이트
+            }
+        </script>
+    </body>
+</html>
